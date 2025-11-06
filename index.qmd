@@ -1,6 +1,6 @@
 ---
 title: "Lab: List Processing"
-author: "Your Name Here"
+author: "Nadjia Logans"
 format: html
 number-sections: true
 number-depth: 2
@@ -30,6 +30,26 @@ For this portion of the assignment, only work with the canonical Dr. Who files (
 Add a code chunk that will read each of the JSON files in. 
 Store the data in a `drwhoYYYY` object, where `YYYY` is the first year the series  began to air. 
 How are the data objects stored?
+
+```{r}
+#install.packages("jsonlite")
+library(jsonlite)
+
+#Reading in files
+drwho2023<-read_json("drwho-72724.json", simplifyVector = T, simplifyDataFrame=F)
+drwho2005<-read_json("drwho-210.json", simplifyVector = T, simplifyDataFrame=F)
+drwho1963<-read_json("drwho-766.json", simplifyVector = T, simplifyDataFrame=F)
+
+#To open and take a look at the files (made these comments because it took a long time to load)
+#drwho2023
+#drwho2005
+#drwho1963
+```
+
+:::callout
+It looks like the data is stored in a series of lists. When I open each file, I am able to click on each list index and see the information within it.
+:::
+
 
 ---
 
