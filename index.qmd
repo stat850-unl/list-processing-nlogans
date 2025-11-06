@@ -47,7 +47,7 @@ drwho1963<-read_json("drwho-766.json", simplifyVector = T, simplifyDataFrame=F)
 ```
 
 :::callout
-It looks like the data is stored in a series of lists. When I open each file, I am able to click on each list index and see the information within it.
+It looks like the data is stored in a series of multi-level lists. When I open each file, I am able to click on each list index and see the information within it.
 :::
 
 
@@ -58,6 +58,14 @@ It looks like the data is stored in a series of lists. When I open each file, I 
 Create a nested markdown list showing what variables are nested at each level of the JSON file. Include an 'episode' object that is a stand-in for a generic episode (e.g. don't create a list with all 700+ episodes in it, just show what a single episode has). Make sure you use proper markdown formatting to ensure that the lists are rendered properly when you compile your document.
 
 Hint: The `prettify()` function in the R package `jsonlite` will spit out a better-formatted version of a JSON file. 
+```{r}
+#install.packages("purrr")
+library(purrr)
+library(tidyr)
+
+readLines("drwho-210.json") |> prettify() |> writeLines(con ="drwho-210-pretty.json")
+```
+
 
 ----
 
@@ -95,6 +103,13 @@ Add a code chunk that will convert the JSON files into the table(s) you sketched
 Make sure that the resulting tables have the correct variable types (e.g., dates should not be stored as character variables).
 
 Print out the first 5 rows of each table that you create (but no more)!
+
+```{r}
+#DrWho1963 Episode Info
+episode_info<-tibble(id = drwho1963 |> map_dbl("id"), season = drwho1963 |> map_dbl("season"), number=drwho1963 |>map_int("number"), name = drwho1963 |> map_chr("name"), airtime= drwho1963 |> map_chr("airtime"))
+head(episode_info,5)
+```
+
 
 ## Examining Episode Air Dates
 
